@@ -6,6 +6,7 @@ const {sequelize} = require("./db/models")
 
 //импорт роутов
 const newMessageRoute = require('./routes/newMessageRoute');
+const MessageRoute = require('./routes/MessageRoute');
 
 const app = express();
 
@@ -25,6 +26,7 @@ app.use(express.urlencoded({extended: true}))
 
 
 app.use('/newmessage', newMessageRoute)
+app.use('/message', MessageRoute)
 
 
 

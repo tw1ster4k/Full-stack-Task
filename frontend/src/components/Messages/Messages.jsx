@@ -5,7 +5,21 @@ import {cn} from "@bem-react/classname"
 const Messages = () => {
     const [text, setText] = useState('')
     const [author, setAuthor] = useState("")
-    const cnMessage = cn("Message")
+    const [messages, setMessages] = useState([])
+    const cnMessage = cn("Messages")
+
+    useEffect(() => {
+        (async () => {
+            const res = await fetch("http://localhost:4000/message", {
+                method:"GET",
+                headers: {
+                    "Content-Type": "application/json",
+                }
+            })
+            const data = await res.json()
+            setMessages(data)
+        })()
+    }, [])
 
     const onText = (e) => {
         setText(e.target.value)
@@ -18,7 +32,6 @@ const Messages = () => {
     }
 
     const newMessage = async function(e){
-        e.preventDefault();
         const response = await fetch("http://localhost:4000/newmessage", {
             method:"POST",
             headers:{
@@ -26,6 +39,8 @@ const Messages = () => {
             },
             body:JSON.stringify({text:text,author:author})
         })
+        setText('')
+        setAuthor('')
     }
 
   return (
@@ -35,8 +50,13 @@ const Messages = () => {
         <label ><input type="string" onChange={onAuthor} className={cnMessage("Author")} /> Автор</label>
         <button type='submit' className={cnMessage("Button")}>Разместить сообщение</button>
         </form>
-        <div className={cnMessage("allMessage")}>
-
+        <div className={cnMessage("allMessages")}>
+            {messages.map((el, index) => 
+            <div className={cnMessage("Message")} key={index}>
+                <h3>Автор: {el.author}</h3>
+                <p>{el.text}</p>
+            </div>
+            )}
         </div>
     </div>
   )
