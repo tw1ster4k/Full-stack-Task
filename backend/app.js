@@ -5,8 +5,8 @@ const cors = require('cors');
 const {sequelize} = require("./db/models")
 
 //импорт роутов
-const newMessageRoute = require('./routes/newMessageRoute');
 const MessageRoute = require('./routes/MessageRoute');
+const NumberRoute = require('./routes/NumberRoute')
 
 const app = express();
 
@@ -25,8 +25,9 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 
 
-app.use('/newmessage', newMessageRoute)
-app.use('/message', MessageRoute)
+
+app.use('/', MessageRoute);
+app.use("/", NumberRoute);
 
 
 
