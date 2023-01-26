@@ -3,7 +3,8 @@ const {Average} = require("../db/models");
 
 route.get('/number', async (req,res) => {
     try {
-        
+        const data = await Average.findAll({raw: true})
+        res.json(data)
     } catch (error) {
         console.log(error)
     }

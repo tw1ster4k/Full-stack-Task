@@ -4,3 +4,10 @@
     margin: 0 auto;
     background-color: rgb(197, 196, 196);
 }
+
+.App-Navbar{
+    height: 50px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
